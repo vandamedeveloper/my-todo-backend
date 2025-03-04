@@ -1,32 +1,27 @@
-// eslint.config.js
+// eslint.config.mjs (note the .mjs extension)
+import eslint from "@eslint/js";
+import tseslint from "typescript-eslint";
 
-import { ESLint } from 'eslint';
-
-/**
- * @type {ESLint.ConfigData}
- */
-export default [
+export default tseslint.config(
   {
-    ignores: ['node_modules', 'dist'],
+    ignores: ["node_modules", "dist"],
   },
+  eslint.configs.recommended,
+  ...tseslint.configs.recommended,
   {
-    files: ['**/*.ts'],
+    files: ["**/*.ts"],
     languageOptions: {
-      parser: '@typescript-eslint/parser',
+      parser: tseslint.parser,
       parserOptions: {
-        ecmaVersion: 'latest',
-        sourceType: 'module',
+        ecmaVersion: "latest",
+        sourceType: "module",
       },
     },
-    plugins: {
-      '@typescript-eslint': require('@typescript-eslint/eslint-plugin'),
-    },
     rules: {
-      // Reglas de ejemplo
-      'no-unused-vars': 'warn',
-      '@typescript-eslint/no-unused-vars': 'warn',
-      semi: ['error', 'always'],
-      quotes: ['error', 'double'],
+      "no-unused-vars": "warn",
+      "@typescript-eslint/no-unused-vars": "warn",
+      semi: ["error", "always"],
+      quotes: ["error", "double"],
     },
   },
-];
+);
