@@ -1,31 +1,31 @@
 // eslint.config.js
 const eslint = require("@eslint/js");
-const tseslint = require("typescript-eslint");
+const tsParser = require("@typescript-eslint/parser");
+const tsPlugin = require("@typescript-eslint/eslint-plugin");
 
-module.exports = tseslint.config(
+module.exports = [
   {
     ignores: ["node_modules", "dist"],
   },
   eslint.configs.recommended,
-  ...tseslint.configs.recommended,
   {
+    plugins: {
+      "@typescript-eslint": tsPlugin,
+    },
+    files: ["**/*.ts"],
     languageOptions: {
-      globals: {
-        require: "readonly",
-        module: "readonly",
-      },
+      parser: tsParser,
       parserOptions: {
         ecmaVersion: "latest",
         sourceType: "module",
       },
     },
-    files: ["**/*.ts"],
     rules: {
-      "no-undef": "off", // Disable no-undef rule
+      "no-undef": "off",
       "no-unused-vars": "warn",
       "@typescript-eslint/no-unused-vars": "warn",
       semi: ["error", "always"],
       quotes: ["error", "double"],
     },
   },
-);
+];
