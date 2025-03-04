@@ -6,7 +6,7 @@ module.exports = [
     ignores: ["node_modules", "dist"],
   },
   eslint.configs.recommended,
-  ...tseslint.configs.recommended,
+  tseslint.configs.recommended,
   {
     files: ["**/*.ts"],
     languageOptions: {
