@@ -1,20 +1,17 @@
 // eslint.config.js
-const eslint = require("@eslint/js");
-const tsParser = require("@typescript-eslint/parser");
-const tsPlugin = require("@typescript-eslint/eslint-plugin");
+import eslint from "@eslint/js";
+import tseslint from "typescript-eslint";
 
-module.exports = [
+export default [
   {
     ignores: ["node_modules", "dist"],
   },
   eslint.configs.recommended,
+  ...tseslint.configs.recommended,
   {
-    plugins: {
-      "@typescript-eslint": tsPlugin,
-    },
     files: ["**/*.ts"],
     languageOptions: {
-      parser: tsParser,
+      parser: tseslint.parser,
       parserOptions: {
         ecmaVersion: "latest",
         sourceType: "module",
