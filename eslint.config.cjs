@@ -1,8 +1,7 @@
-// eslint.config.js
-import eslint from "@eslint/js";
-import tseslint from "typescript-eslint";
+const eslint = require("@eslint/js");
+const tseslint = require("@typescript-eslint/eslint-plugin");
 
-export default [
+module.exports = [
   {
     ignores: ["node_modules", "dist"],
   },
@@ -11,7 +10,7 @@ export default [
   {
     files: ["**/*.ts"],
     languageOptions: {
-      parser: tseslint.parser,
+      parser: require("@typescript-eslint/parser"),
       parserOptions: {
         ecmaVersion: "latest",
         sourceType: "module",
