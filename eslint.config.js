@@ -1,36 +1,70 @@
-// eslint.config.js
-const pluginJs = require("@eslint/js");
-const pluginTs = require("@typescript-eslint/eslint-plugin");
-const parserTs = require("@typescript-eslint/parser");
+const tseslint = require('@typescript-eslint/eslint-plugin');
+const tsParser = require('@typescript-eslint/parser');
+const js = require('@eslint/js');
+const globals = require('globals');
 
 module.exports = [
   {
-    files: ["*.ts", "*.tsx"],
+    files: ['**/*.ts', '**/*.tsx'],
     languageOptions: {
-      parser: parserTs,
+      parser: tsParser,
       parserOptions: {
-        ecmaVersion: "latest",
-        sourceType: "commonjs", // Especifica que estás utilizando CommonJS
+        ecmaVersion: 'latest',
+        sourceType: 'module',
+      },
+      globals: {
+        ...globals.node,
       },
     },
     plugins: {
-      "@typescript-eslint": pluginTs,
+      '@typescript-eslint': tseslint,
+      prettier: require('eslint-plugin-prettier'),
     },
     rules: {
-      // Añade aquí las reglas específicas que desees
+      ...js.configs.recommended.rules,
+      ...(tseslint.configs['recommended'] || {}).rules,
+
+      // 🛑 ❌ Bloquear `console.log`
+      'no-console': ['error', { allow: ['warn', 'error'] }],
+
+      // 🛑 ❌ Bloquear `debugger`
+      'no-debugger': 'error',
+
+      // ✅ Reglas de Prettier
+      'prettier/prettier': 'error',
+
+      // ✅ Reglas de formato
+      quotes: ['error', 'single'],
+      semi: ['error', 'always'],
+      '@typescript-eslint/no-unused-vars': 'warn',
     },
   },
   {
-    files: ["*.js", "*.jsx"],
+    files: ['**/*.js', '**/*.jsx'],
     languageOptions: {
-      ecmaVersion: "latest",
-      sourceType: "commonjs", // Especifica que estás utilizando CommonJS
+      ecmaVersion: 'latest',
+      sourceType: 'module',
+      globals: {
+        ...globals.node,
+      },
     },
     plugins: {
-      "@eslint/js": pluginJs,
+      '@eslint/js': js,
+      prettier: require('eslint-plugin-prettier'),
     },
     rules: {
-      // Añade aquí las reglas específicas que desees
+      ...js.configs.recommended.rules,
+
+      // 🛑 ❌ Bloquear `console.log`
+      'no-console': ['error', { allow: ['warn', 'error'] }],
+
+      // 🛑 ❌ Bloquear `debugger`
+      'no-debugger': 'error',
+
+      'prettier/prettier': 'error',
     },
+  },
+  {
+    ignores: ['node_modules/', 'dist/'],
   },
 ];
