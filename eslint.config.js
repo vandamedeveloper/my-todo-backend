@@ -23,17 +23,9 @@ module.exports = [
     rules: {
       ...js.configs.recommended.rules,
       ...(tseslint.configs['recommended'] || {}).rules,
-
-      // 🛑 ❌ Bloquear `console.log`
       'no-console': ['error', { allow: ['warn', 'error'] }],
-
-      // 🛑 ❌ Bloquear `debugger`
       'no-debugger': 'error',
-
-      // ✅ Reglas de Prettier
       'prettier/prettier': 'error',
-
-      // ✅ Reglas de formato
       quotes: ['error', 'single'],
       semi: ['error', 'always'],
       '@typescript-eslint/no-unused-vars': 'warn',
@@ -54,11 +46,7 @@ module.exports = [
     },
     rules: {
       ...js.configs.recommended.rules,
-
-      // 🛑 ❌ Bloquear `console.log`
       'no-console': ['error', { allow: ['warn', 'error'] }],
-
-      // 🛑 ❌ Bloquear `debugger`
       'no-debugger': 'error',
 
       'prettier/prettier': 'error',
