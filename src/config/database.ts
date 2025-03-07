@@ -1,9 +1,8 @@
 // src/config/database.ts
 import { DataSource } from 'typeorm';
+import { User } from '../entities/User';
+import { resolve } from 'path';
 
-/**
- * DataSource principal de la aplicación
- */
 export const AppDataSource = new DataSource({
   type: 'mysql',
   host: process.env.DB_HOST || 'localhost',
@@ -11,20 +10,18 @@ export const AppDataSource = new DataSource({
   username: process.env.DB_USER || 'root',
   password: process.env.DB_PASS || 'my-secret-pw',
   database: process.env.DB_NAME || 'my_todo_db',
-  synchronize: false, // Activarlo solo en desarrollo, no en producción
+  synchronize: false,
   logging: false,
-  entities: [], // Aquí luego añadiremos nuestras entidades
+  entities: [User],
+  migrations: [resolve(__dirname, '../migrations/*.{ts,js}')],
 });
 
-/**
- * Función para inicializar la conexión a la base de datos
- */
 export async function initDB() {
   try {
     await AppDataSource.initialize();
     console.log('DB connected successfully');
   } catch (error) {
     console.error('Error connecting to DB:', error);
-    throw error; // Si la conexión falla, relanzamos el error para no iniciar el servidor
+    throw error;
   }
 }
