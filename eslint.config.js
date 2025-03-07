@@ -23,13 +23,9 @@ module.exports = [
     rules: {
       ...js.configs.recommended.rules,
       ...(tseslint.configs['recommended'] || {}).rules,
-
       'no-console': ['error', { allow: ['warn', 'error'] }],
-
       'no-debugger': 'error',
-
       'prettier/prettier': 'error',
-
       quotes: ['error', 'single'],
       semi: ['error', 'always'],
       '@typescript-eslint/no-unused-vars': 'warn',
@@ -50,9 +46,7 @@ module.exports = [
     },
     rules: {
       ...js.configs.recommended.rules,
-
       'no-console': ['error', { allow: ['warn', 'error'] }],
-
       'no-debugger': 'error',
 
       'prettier/prettier': 'error',
