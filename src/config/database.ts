@@ -2,6 +2,7 @@
 import { DataSource } from 'typeorm';
 import { User } from '../entities/User';
 import { resolve } from 'path';
+import { Task } from '../entities/Task';
 
 export const AppDataSource = new DataSource({
   type: 'mysql',
@@ -12,7 +13,7 @@ export const AppDataSource = new DataSource({
   database: process.env.DB_NAME || 'my_todo_db',
   synchronize: false,
   logging: false,
-  entities: [User],
+  entities: [User, Task],
   migrations: [resolve(__dirname, '../migrations/*.{ts,js}')],
 });
 
