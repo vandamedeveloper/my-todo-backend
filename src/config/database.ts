@@ -1,4 +1,3 @@
-// src/config/database.ts
 import { DataSource } from 'typeorm';
 import { User } from '../entities/User';
 import { resolve } from 'path';
@@ -9,7 +8,7 @@ export const AppDataSource = new DataSource({
   host: process.env.DB_HOST || 'localhost',
   port: parseInt(process.env.DB_PORT || '3307', 10),
   username: process.env.DB_USER || 'root',
-  password: process.env.DB_PASS || 'my-secret-pw',
+  password: process.env.DB_PASSWORD || 'my-secret-pw',
   database: process.env.DB_NAME || 'my_todo_db',
   synchronize: false,
   logging: false,
