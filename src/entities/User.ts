@@ -1,9 +1,9 @@
-import { CreateDateColumn, OneToMany } from 'typeorm';
+import { BeforeInsert, CreateDateColumn, OneToMany } from 'typeorm';
 import { UpdateDateColumn } from 'typeorm';
 import { Column } from 'typeorm';
 import { Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { Task } from './Task';
-
+import bcrypt from 'bcrypt';
 @Entity({ name: 'users' })
 export class User {
   @PrimaryGeneratedColumn()
@@ -26,4 +26,9 @@ export class User {
 
   @UpdateDateColumn()
   updated_at: Date;
+
+  @BeforeInsert()
+  async hashPassword(): Promise<void> {
+    this.password = await bcrypt.hash(this.password, 10);
+  }
 }
